@@ -1,0 +1,22 @@
+import { useEffect, useRef } from 'react';
+import ePub from 'epubjs';
+
+function App() {
+  const viewerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (viewerRef.current) {
+      // Dòng này chỉ đường dẫn đến file sách đã nằm trong thư mục public của dự án
+      const book = ePub('/assets/sherlock.epub');
+      const rendition = book.renderTo(viewerRef.current, {
+        width: "100%",
+        height: "100vh"
+      });
+      rendition.display();
+    }
+  }, []);
+
+  return <div ref={viewerRef} />;
+}
+
+export default App;
